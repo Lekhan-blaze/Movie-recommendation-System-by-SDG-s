@@ -4,6 +4,7 @@
 
 // State
 let currentSDG = null;
+let currentSDGName = '';
 let currentGenre = '';
 
 // DOM Elements
@@ -59,7 +60,7 @@ async function loadSDGs() {
         const sdgs = await response.json();
 
         sdgButtonsContainer.innerHTML = sdgs.map(sdg => `
-            <button class="sdg-btn" data-sdg="${sdg.name}" style="--sdg-color: ${sdg.color}">
+            <button class="sdg-btn" data-sdg="${sdg.id}" data-name="${sdg.name}" style="--sdg-color: ${sdg.color}">
                 <span class="sdg-icon">${sdg.icon}</span>
                 <span class="sdg-name">${sdg.name}</span>
             </button>
@@ -81,6 +82,7 @@ async function selectSDG(btn) {
     btn.classList.add('active');
 
     currentSDG = btn.dataset.sdg;
+    currentSDGName = btn.dataset.name || btn.dataset.sdg;
 
     // Show filters and load movies
     genreFilter.style.display = 'flex';
@@ -121,7 +123,7 @@ async function loadMovies() {
         const response = await fetch(`/api/movies?${params}`);
         const movies = await response.json();
 
-        resultsTitle.textContent = `Movies for ${currentSDG}`;
+        resultsTitle.textContent = `Movies for ${currentSDGName}`;
         moviesSection.style.display = 'block';
 
         renderMovies(moviesGrid, movies, 'confidence');

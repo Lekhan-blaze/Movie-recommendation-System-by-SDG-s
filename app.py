@@ -55,6 +55,9 @@ SDG_CATEGORIES = [
     {'id': 'sdg16', 'name': 'SDG 16: Peace & Justice', 'icon': '☮️', 'color': '#00689d'},
 ]
 
+# Mapping from short ID to full SDG name (used by ML model)
+SDG_ID_TO_NAME = {cat['id']: cat['name'] for cat in SDG_CATEGORIES}
+
 
 def fetch_poster(title):
     """Fetch movie poster from TMDB API."""
@@ -94,24 +97,32 @@ def get_sdgs():
 @app.route('/api/movies')
 def get_movies():
     """Get movies filtered by SDG category."""
-    sdg = request.args.get('sdg', '')
+    sdg_id = request.args.get('sdg', '')
     genre = request.args.get('genre', '')
     limit = int(request.args.get('limit', 12))
     
-    if not sdg:
+    if not sdg_id:
         return jsonify([])
     
-    # Filter by SDG
-    filtered = df[df['ml_sdg_tags'].apply(lambda tags: sdg in tags)].copy()
+    # Convert short ID to full SDG name used by ML model
+    sdg_name = SDG_ID_TO_NAME.get(sdg_id, '')
+    if not sdg_name:
+        return jsonify([])
+    
+    # Filter by SDG (using full name)
+    filtered = df[df['ml_sdg_tags'].apply(lambda tags: sdg_name in tags)].copy()
     
     # Filter by genre if specified
     if genre:
         filtered = filtered[filtered['genre_names'].apply(lambda g_list: genre in g_list)]
     
+    if filtered.empty:
+        return jsonify([])
+    
     # Sort by confidence
     def get_confidence(row):
-        if sdg in row['ml_sdg_tags']:
-            idx = row['ml_sdg_tags'].index(sdg)
+        if sdg_name in row['ml_sdg_tags']:
+            idx = row['ml_sdg_tags'].index(sdg_name)
             return row['ml_sdg_confidence'][idx] if idx < len(row['ml_sdg_confidence']) else 0
         return 0
     
@@ -192,5 +203,5 @@ def search_movies():
 if __name__ == '__main__':
     print("🎬 Starting SDG Movie Recommender...")
     print("📊 ML Models loaded successfully!")
-    print("🌐 Server running at http://localhost:5000")
-    app.run(debug=True, port=5000)
+    print("🌐 Server running at http://localhost:5001")
+    app.run(debug=True, port=5001)
