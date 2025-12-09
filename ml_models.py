@@ -164,28 +164,33 @@ class SDGClassifier:
             return True
         return False
     
-    def predict(self, text):
-        """Predict SDG tags for a given text with confidence scores."""
+    def predict(self, text, top_n=2, min_confidence=0.1):
+        """Predict SDG tags for a given text with confidence scores.
+        
+        Returns top N SDG tags by probability (above min_confidence threshold).
+        """
         if self.classifier is None or self.vectorizer is None:
-            return [], []
+            return []
+        
+        if not text or not text.strip():
+            return []
         
         X = self.vectorizer.transform([text])
         
-        # Get probabilities
+        # Get probabilities for all classes
         proba = self.classifier.predict_proba(X)[0]
         
-        # Get predictions
-        predictions = self.classifier.predict(X)
-        predicted_labels = self.mlb.inverse_transform(predictions)[0]
-        
-        # Create confidence dict
-        confidences = {}
+        # Create list of (label, confidence) pairs, excluding 'None'
+        sdg_scores = []
         for i, label in enumerate(self.mlb.classes_):
             if label != 'None':
-                confidences[label] = float(proba[i])
+                sdg_scores.append((label, float(proba[i])))
         
-        # Filter to predicted labels with their confidences
-        result = [(label, confidences.get(label, 0.0)) for label in predicted_labels if label != 'None']
+        # Sort by confidence descending
+        sdg_scores.sort(key=lambda x: x[1], reverse=True)
+        
+        # Return top N that meet minimum confidence
+        result = [(label, conf) for label, conf in sdg_scores[:top_n] if conf >= min_confidence]
         
         return result
     
