@@ -117,7 +117,7 @@ async function loadMovies() {
         const params = new URLSearchParams({
             sdg: currentSDG,
             genre: currentGenre,
-            limit: 12
+            limit: 20
         });
 
         const response = await fetch(`/api/movies?${params}`);
@@ -212,40 +212,46 @@ async function search() {
 
 // Render Movies
 function renderMovies(container, movies, scoreType) {
-    if (movies.length === 0) {
+    if (!movies || movies.length === 0) {
         container.innerHTML = '<p style="color: var(--text-muted);">No movies found.</p>';
         return;
     }
 
-    container.innerHTML = movies.map(movie => `
+    container.innerHTML = movies.map(movie => {
+        const rating = movie.rating != null ? movie.rating.toFixed(1) : 'N/A';
+        const genres = movie.genres || [];
+        const score = movie[scoreType] != null ? movie[scoreType] : 0;
+        const title = movie.title || 'Unknown Title';
+
+        return `
         <div class="movie-card">
             <div class="movie-poster">
                 ${movie.poster
-            ? `<img src="${movie.poster}" alt="${movie.title}" loading="lazy">`
-            : `<div class="movie-poster-placeholder">🎬</div>`
-        }
+                ? `<img src="${movie.poster}" alt="${title}" loading="lazy">`
+                : `<div class="movie-poster-placeholder">🎬</div>`
+            }
             </div>
             <div class="movie-info">
-                <h4 class="movie-title" title="${movie.title}">${movie.title}</h4>
+                <h4 class="movie-title" title="${title}">${title}</h4>
                 <div class="movie-rating">
                     <span>⭐</span>
-                    <span>${movie.rating.toFixed(1)}</span>
+                    <span>${rating}</span>
                 </div>
                 <div class="movie-genres">
-                    ${movie.genres.slice(0, 2).map(g => `<span class="genre-tag">${g}</span>`).join('')}
+                    ${genres.slice(0, 2).map(g => `<span class="genre-tag">${g}</span>`).join('')}
                 </div>
                 <div class="score-bar">
                     <div class="score-label">
                         <span>${scoreType === 'confidence' ? 'ML Confidence' : 'Similarity'}</span>
-                        <span>${movie[scoreType]}%</span>
+                        <span>${score}%</span>
                     </div>
                     <div class="score-track">
-                        <div class="score-fill" style="width: ${movie[scoreType]}%"></div>
+                        <div class="score-fill" style="width: ${score}%"></div>
                     </div>
                 </div>
             </div>
         </div>
-    `).join('');
+    `}).join('');
 }
 
 // Loading State
