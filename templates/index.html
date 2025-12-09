@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDG Movie Recommender | Powered by ML</title>
+    <meta name="description" content="Discover movies aligned with UN Sustainable Development Goals using AI-powered recommendations.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Animated Background -->
+        <div class="bg-gradient"></div>
+        <div class="bg-blur-1"></div>
+        <div class="bg-blur-2"></div>
+
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🎬</span>
+                    <h1 class="logo-text">SDG<span class="gradient-text">Movies</span></h1>
+                </div>
+                <p class="tagline">AI-Powered Movie Recommendations for a Better World</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Tab Navigation -->
+            <nav class="tabs">
+                <button class="tab active" data-tab="sdg">
+                    <span class="tab-icon">🎯</span>
+                    <span class="tab-text">SDG Categories</span>
+                </button>
+                <button class="tab" data-tab="similar">
+                    <span class="tab-icon">🔍</span>
+                    <span class="tab-text">Find Similar</span>
+                </button>
+            </nav>
+
+            <!-- SDG Tab Content -->
+            <section id="sdg-tab" class="tab-content active">
+                <!-- SDG Selector -->
+                <div class="sdg-selector">
+                    <h2 class="section-title">Select a Sustainable Development Goal</h2>
+                    <div class="sdg-grid" id="sdg-buttons">
+                        <!-- SDG buttons will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Genre Filter -->
+                <div class="filters" id="genre-filter" style="display: none;">
+                    <label class="filter-label">Filter by genre:</label>
+                    <select id="genre-select" class="genre-select">
+                        <option value="">All Genres</option>
+                    </select>
+                </div>
+
+                <!-- Movies Grid -->
+                <div class="movies-section" id="movies-section" style="display: none;">
+                    <h3 class="results-title" id="results-title">Recommended Movies</h3>
+                    <div class="movies-grid" id="movies-grid">
+                        <!-- Movie cards will be loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Similar Movies Tab Content -->
+            <section id="similar-tab" class="tab-content">
+                <div class="search-section">
+                    <h2 class="section-title">Find Movies Similar to Your Favorites</h2>
+                    <div class="search-container">
+                        <input type="text" id="search-input" class="search-input" placeholder="Enter a movie title (e.g., Avatar, Inception...)">
+                        <button id="search-btn" class="search-btn">
+                            <span>🔍</span> Search
+                        </button>
+                    </div>
+                    <div class="suggestions" id="suggestions"></div>
+                </div>
+
+                <!-- Similar Movies Grid -->
+                <div class="movies-section" id="similar-section" style="display: none;">
+                    <h3 class="results-title" id="similar-title">Similar Movies</h3>
+                    <div class="movies-grid" id="similar-grid">
+                        <!-- Similar movie cards will be loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Loading Indicator -->
+            <div class="loading" id="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Loading recommendations...</p>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="ml-badge">
+                    <span>🤖</span> Powered by <strong>TF-IDF</strong> · <strong>Cosine Similarity</strong> · <strong>Naive Bayes</strong>
+                </p>
+                <p class="data-source">Data Source: TMDB 5000 Movies Dataset</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
