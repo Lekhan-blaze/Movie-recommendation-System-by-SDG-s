@@ -222,6 +222,7 @@ function renderMovies(container, movies, scoreType) {
         const genres = movie.genres || [];
         const score = movie[scoreType] != null ? movie[scoreType] : 0;
         const title = movie.title || 'Unknown Title';
+        const sdgTags = movie.sdg_tags || [];
 
         return `
         <div class="movie-card">
@@ -240,6 +241,11 @@ function renderMovies(container, movies, scoreType) {
                 <div class="movie-genres">
                     ${genres.slice(0, 2).map(g => `<span class="genre-tag">${g}</span>`).join('')}
                 </div>
+                ${sdgTags.length > 0 ? `
+                <div class="movie-sdgs" style="margin-top: 8px;">
+                    ${sdgTags.map(sdg => `<span class="sdg-tag" style="font-size: 0.7rem; padding: 2px 6px; background: rgba(99, 102, 241, 0.2); border-radius: 4px; margin-right: 4px; color: #a5b4fc;">${sdg.replace('SDG ', '').split(':')[0]}</span>`).join('')}
+                </div>
+                ` : ''}
                 <div class="score-bar">
                     <div class="score-label">
                         <span>${scoreType === 'confidence' ? 'ML Confidence' : 'Similarity'}</span>

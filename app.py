@@ -159,12 +159,19 @@ def get_similar_movies(title):
     movies = []
     for _, row in similar.iterrows():
         poster = fetch_poster(row['title'])
+        
+        # Get SDG tags for this movie
+        overview = row['overview'] if pd.notna(row['overview']) else ''
+        sdg_preds = classify_sdg(sdg_classifier, overview)
+        sdg_tags = [p[0] for p in sdg_preds]
+        
         movies.append({
             'title': row['title'],
-            'overview': row['overview'] if pd.notna(row['overview']) else '',
+            'overview': overview,
             'rating': float(row['vote_average']) if pd.notna(row['vote_average']) else 0,
             'genres': row['genre_names'][:3] if 'genre_names' in row else [],
             'similarity': round(row['similarity_score'] * 100, 1),
+            'sdg_tags': sdg_tags,
             'poster': poster
         })
     
