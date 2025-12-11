@@ -7,7 +7,7 @@
 
 This is a **Machine Learning-powered movie recommendation system** that:
 1. **Recommends similar movies** based on plot/content similarity
-2. **Classifies movies by UN Sustainable Development Goals (SDGs)** - helping users find movies about education, climate, equality, etc.
+2. **Classifies movies by UN Sustainable Development Goals (SDGs)** - helping users find movies about education, equality, justice, etc.
 
 ---
 
@@ -71,7 +71,7 @@ A probabilistic machine learning algorithm for classification.
 **How it works:**
 - Based on **Bayes' Theorem** from probability
 - Assumes features (words) are independent of each other (that's the "naive" part)
-- Calculates: "Given these words, what's the probability this movie is about Climate Action?"
+- Calculates: "Given these words, what's the probability this movie is about Peace & Justice?"
 
 **Formula (Bayes' Theorem):**
 ```
@@ -79,7 +79,7 @@ P(SDG | Words) = P(Words | SDG) × P(SDG) / P(Words)
 ```
 
 **In plain English:**
-"What's the probability this movie is about Climate Action, given it contains words like 'environment', 'planet', 'nature'?"
+"What's the probability this movie is about Peace & Justice, given it contains words like 'justice', 'crime', 'war'?"
 
 ---
 
@@ -101,7 +101,6 @@ Movie: "A woman fights for equal rights in a poor community"
 ├── SDG 5 Classifier → YES (Gender Equality)
 ├── SDG 10 Classifier → YES (Reduced Inequalities)
 ├── SDG 4 Classifier → NO
-├── SDG 13 Classifier → NO
 └── SDG 16 Classifier → NO
 
 Result: [SDG 5, SDG 10]
@@ -151,7 +150,6 @@ Result: [SDG 5, SDG 10]
 | SDG 4 | Quality Education | education, school, learning, teaching, student |
 | SDG 5 | Gender Equality | women, feminism, empowerment, equality |
 | SDG 10 | Reduced Inequalities | racism, poverty, discrimination, refugee |
-| SDG 13 | Climate Action | climate, environment, conservation, nature |
 | SDG 16 | Peace & Justice | justice, peace, crime, human rights, war |
 
 ---
@@ -190,7 +188,7 @@ Compare with all 5000 movies:
 **5. SDG Classifier tags each result**
 ```
 "The Dark Knight" → [SDG 16: Peace & Justice]
-"Interstellar" → [SDG 13: Climate Action]
+"Interstellar" → [SDG 4: Quality Education]
 ```
 
 **6. Return results to user**

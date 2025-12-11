@@ -47,7 +47,6 @@ Movie Overview → TF-IDF → One-vs-Rest Naive Bayes → SDG Tags + Confidence
 | SDG 4 | Quality Education | education, school, learning, teaching |
 | SDG 5 | Gender Equality | women, feminism, empowerment, equality |
 | SDG 10 | Reduced Inequalities | racism, poverty, discrimination, refugee |
-| SDG 13 | Climate Action | climate, environment, conservation, pollution |
 | SDG 16 | Peace & Justice | justice, peace, crime, human rights, war |
 
 ---
