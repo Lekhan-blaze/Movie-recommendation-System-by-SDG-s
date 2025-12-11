@@ -51,7 +51,6 @@ SDG_CATEGORIES = [
     {'id': 'sdg4', 'name': 'SDG 4: Quality Education', 'icon': '📚', 'color': '#c5192d'},
     {'id': 'sdg5', 'name': 'SDG 5: Gender Equality', 'icon': '⚧️', 'color': '#ff3a21'},
     {'id': 'sdg10', 'name': 'SDG 10: Reduced Inequalities', 'icon': '⚖️', 'color': '#dd1367'},
-    {'id': 'sdg13', 'name': 'SDG 13: Climate Action', 'icon': '🌍', 'color': '#3f7e44'},
     {'id': 'sdg16', 'name': 'SDG 16: Peace & Justice', 'icon': '☮️', 'color': '#00689d'},
 ]
 

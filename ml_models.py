@@ -104,7 +104,6 @@ class SDGClassifier:
         'SDG 4: Quality Education': ['education', 'learning', 'school', 'teaching', 'student', 'knowledge', 'teacher', 'university', 'college', 'training'],
         'SDG 5: Gender Equality': ['gender', 'women', 'equality', 'feminism', 'empowerment', 'female', 'sexism', 'women\'s rights', 'girl'],
         'SDG 10: Reduced Inequalities': ['racism', 'poverty', 'discrimination', 'inequality', 'marginalized', 'migration', 'refugee', 'immigrant', 'class', 'segregation'],
-        'SDG 13: Climate Action': ['climate', 'environment', 'pollution', 'sustainability', 'nature', 'global warming', 'ecosystem', 'conservation', 'wildlife'],
         'SDG 16: Peace & Justice': ['justice', 'peace', 'crime', 'corruption', 'law', 'human rights', 'court', 'democracy', 'freedom', 'war']
     }
     
